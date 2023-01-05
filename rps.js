@@ -6,24 +6,44 @@ function getComputerChoice() {
   return choices[randomAnswer];
 }
 
+// const buttons = document.querySelectorAll("button");
+// buttons.forEach((button) => {
+//   button.addEventListener("click", () => {
+//     console.log(button.id);
+//   });
+// });
+
 let player;
 let computer;
 let playerScore = 0;
 let computerScore = 0;
 
-function game() {
-  for (let i = 0; i < 5; i++) {
-    player = prompt();
+//function game() {
+//for (let i = 0; i < 5; i++) {
+//player = prompt();
+//player = "rock"; //manually entering answers for now.
+//computer = getComputerChoice();
+// Calling playRound() function before delaring the playRound() function
+//if we call it after declaring the function, we need to write extra code
+//to assign values to variables player and computer
+//console.log(playRound(player, computer));
+//}
+//}
+
+//added event listener to all buttons
+//used forEach() to iterate through all buttons
+const btn = document.querySelectorAll("button");
+btn.forEach((button) => {
+  button.addEventListener("click", function () {
+    //console.log("clicked");
+    player = button.id;
+    console.log(player);
     computer = getComputerChoice();
-
-    // Calling playRound() function before delaring the playRound() function
-    //if we call it after declaring the function, we need to write extra code
-    //to assign values to variables player and computer
     console.log(playRound(player, computer));
-  }
-}
+  });
+});
 
-game();
+//game();
 
 function playRound(playerSelection, computerSelection) {
   if (playerSelection === "rock" && computerSelection === "paper") {
@@ -59,7 +79,9 @@ function playRound(playerSelection, computerSelection) {
 }
 
 if (playerScore > computerScore) {
-  alert("You are a champian");
-} else {
-  alert("Better luck next time!");
+  //alert("You are a champian");
+  console.log("You are a champian"); //logging to avoid alerts
+} else if (playerScore > computerScore) {
+  //alert("Better luck next time!");
+  console.log("Better luck next time!"); //logging to avoid alerts
 }
