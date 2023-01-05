@@ -3,26 +3,22 @@ let randomAnswer;
 
 function getComputerChoice() {
   randomAnswer = Math.floor(Math.random() * choices.length);
-
   return choices[randomAnswer];
 }
 
 let player;
-//console.log(player);
 let computer;
-//console.log(computer);
-
 let playerScore = 0;
-
 let computerScore = 0;
 
 function game() {
   for (let i = 0; i < 5; i++) {
-    console.log(i);
     player = prompt();
-    console.log(player);
     computer = getComputerChoice();
-    console.log(computer);
+
+    // Calling playRound() function before delaring the playRound() function
+    //if we call it after declaring the function, we need to write extra code
+    //to assign values to variables player and computer
     console.log(playRound(player, computer));
   }
 }
@@ -61,9 +57,6 @@ function playRound(playerSelection, computerSelection) {
     return "Please, input a valid entry";
   }
 }
-
-console.log(playerScore);
-console.log(computerScore);
 
 if (playerScore > computerScore) {
   alert("You are a champian");
