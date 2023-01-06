@@ -32,14 +32,25 @@ let computerScore = 0;
 
 //added event listener to all buttons
 //used forEach() to iterate through all buttons
+
+const showResultContainer = document.createElement("div");
+showResultContainer.setAttribute(
+  "style",
+  "border: 2px black solid; background: pink;"
+);
+
 const btn = document.querySelectorAll("button");
 btn.forEach((button) => {
   button.addEventListener("click", function () {
-    //console.log("clicked");
     player = button.id;
     console.log(player);
     computer = getComputerChoice();
-    console.log(playRound(player, computer));
+    let result = playRound(player, computer);
+
+    //diplay result in div
+    showResultContainer.textContent = `${result}`;
+    console.log(result);
+    resultContainer.appendChild(showResultContainer);
   });
 });
 
@@ -77,6 +88,9 @@ function playRound(playerSelection, computerSelection) {
     return "Please, input a valid entry";
   }
 }
+
+console.log(computerScore);
+console.log(playerScore);
 
 if (playerScore > computerScore) {
   //alert("You are a champian");
