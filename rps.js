@@ -1,3 +1,16 @@
+const showResultContainer = document.getElementById("resultContainer");
+const btn = document.querySelectorAll("button");
+const userChoiceDisplay = document.getElementById("user-choice");
+const computerChoiceDisplay = document.getElementById("computer-choice");
+const computerScoreCounter = document.getElementById("computer-score");
+const userScoreCounter = document.getElementById("user-score");
+const resuldDisplay = document.getElementById("result");
+let userChoice;
+let computerChoice;
+let result;
+let userScore = 0;
+let computerScore = 0;
+
 const choices = ["rock", "paper", "scissors"];
 let randomAnswer;
 
@@ -6,96 +19,60 @@ function getComputerChoice() {
   return choices[randomAnswer];
 }
 
-// const buttons = document.querySelectorAll("button");
-// buttons.forEach((button) => {
-//   button.addEventListener("click", () => {
-//     console.log(button.id);
-//   });
-// });
-
-let player;
-let computer;
-let playerScore = 0;
-let computerScore = 0;
-
-//function game() {
-//for (let i = 0; i < 5; i++) {
-//player = prompt();
-//player = "rock"; //manually entering answers for now.
-//computer = getComputerChoice();
-// Calling playRound() function before delaring the playRound() function
-//if we call it after declaring the function, we need to write extra code
-//to assign values to variables player and computer
-//console.log(playRound(player, computer));
-//}
-//}
-
-//added event listener to all buttons
-//used forEach() to iterate through all buttons
-
-const showResultContainer = document.createElement("div");
-showResultContainer.setAttribute(
-  "style",
-  "border: 2px black solid; background: pink;"
-);
-
-const btn = document.querySelectorAll("button");
 btn.forEach((button) => {
-  button.addEventListener("click", function () {
-    player = button.id;
-    console.log(player);
-    computer = getComputerChoice();
-    let result = playRound(player, computer);
-
-    //diplay result in div
-    showResultContainer.textContent = `${result}`;
-    console.log(result);
-    resultContainer.appendChild(showResultContainer);
+  button.addEventListener("click", function (e) {
+    userChoice = e.target.id;
+    userChoiceDisplay.innerHTML = userChoice;
+    computerChoice = getComputerChoice();
+    computerChoiceDisplay.innerHTML = computerChoice;
+    result = playRound(userChoice, computerChoice);
   });
 });
 
-//game();
-
 function playRound(playerSelection, computerSelection) {
   if (playerSelection === "rock" && computerSelection === "paper") {
-    computerScore = computerScore + 1;
-    return "You Lose! Paper beats Rock!";
+    computerScore++;
+    result = "You Lose! Paper beats Rock!";
   } else if (playerSelection === "rock" && computerSelection === "scissors") {
-    playerScore = playerScore + 1;
-    return "You Win! Rock beats Scissors!";
+    userScore++;
+    result = "You Win! Rock beats Scissors!";
   } else if (playerSelection === "scissors" && computerSelection === "paper") {
-    playerScore = playerScore + 1;
-    return "You Win! Scissors beats Paper";
+    userScore++;
+    result = "You Win! Scissors beats Paper";
   } else if (playerSelection === "paper" && computerSelection === "rock") {
-    playerScore = playerScore + 1;
-    return "You Win! Paper beats Rock!";
+    userScore++;
+    result = "You Win! Paper beats Rock!";
   } else if (playerSelection === "scissors" && computerSelection === "rock") {
-    computerScore = computerScore + 1;
-    return "You Lose! Rock beats scissors";
+    computerScore++;
+    result = "You Lose! Rock beats scissors";
   } else if (playerSelection === "paper" && computerSelection === "scissors") {
-    computerScore = computerScore + 1;
-    return "You Lose! Scissors beats Paper";
+    computerScore++;
+    result = "You Lose! Scissors beats Paper";
   } else if (playerSelection === "rock" && computerSelection === "rock") {
-    return "It's a draw!";
+    result = "It's a draw!";
   } else if (playerSelection === "paper" && computerSelection === "paper") {
-    return "It's a draw!";
+    result = "It's a draw!";
   } else if (
     playerSelection === "scissors" &&
     computerSelection === "scissors"
   ) {
-    return "It's a draw";
+    result = "It's a draw";
   } else {
-    return "Please, input a valid entry";
+    result = "Please, input a valid entry";
   }
+
+  if (computerScore === 5) {
+    result = "Sorry! Try again!";
+  } else if (userScore === 5) {
+    result = "Hurray!!! You win!";
+  }
+
+  computerScoreCounter.innerHTML = "Computer Score: " + computerScore + " ";
+  userScoreCounter.innerHTML = " " + "User Score: " + userScore;
+  resuldDisplay.innerHTML = result;
 }
 
-console.log(computerScore);
-console.log(playerScore);
-
-if (playerScore > computerScore) {
-  //alert("You are a champian");
-  console.log("You are a champian"); //logging to avoid alerts
-} else if (playerScore > computerScore) {
-  //alert("Better luck next time!");
-  console.log("Better luck next time!"); //logging to avoid alerts
-}
+showResultContainer.setAttribute(
+  "style",
+  "border: 2px black solid; background: pink; padding: 10px; font-size: 30px; font-weight: bold;"
+);
